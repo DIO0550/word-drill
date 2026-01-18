@@ -2,48 +2,94 @@
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
+/* Hero Section */
 .home-page__hero {
   text-align: center;
-  margin-bottom: 3rem;
-  padding: 2rem 0;
+  margin-bottom: 4rem;
+  padding: 4rem 2rem;
+  position: relative;
+}
+
+.home-page__hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.12) 0%,
+    rgba(139, 92, 246, 0.08) 30%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: pulse-glow 5s ease-in-out infinite;
 }
 
 .home-page__title {
-  font-size: 2.5rem;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
   font-weight: 800;
-  margin: 0 0 0.75rem 0;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  margin: 0 0 1rem 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 50%,
+    var(--color-accent) 100%
+  );
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradient-shift 6s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .home-page__subtitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--color-text-secondary);
   margin: 0;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.03em;
 }
 
+/* Categories Grid - 2 large cards layout */
 .home-page__categories {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
-@media (max-width: 600px) {
+/* Responsive */
+@media (max-width: 768px) {
   .home-page {
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   .home-page__hero {
-    margin-bottom: 2rem;
-    padding: 1rem 0;
+    margin-bottom: 2.5rem;
+    padding: 2rem 1rem;
+  }
+
+  .home-page__hero::before {
+    width: 280px;
+    height: 280px;
   }
 
   .home-page__title {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
   }
 
   .home-page__subtitle {
@@ -52,5 +98,16 @@
 
   .home-page__categories {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page {
+    padding: 1rem;
+  }
+
+  .home-page__title {
+    font-size: 1.5rem;
   }
 }

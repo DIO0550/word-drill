@@ -1,5 +1,5 @@
-import { categories } from '../../data/categories'
-import { CategoryCard } from '../CategoryCard/CategoryCard'
+import { mainCategories } from '../../data/categories'
+import { MainCategoryCard } from '../MainCategoryCard/MainCategoryCard'
 import './HomePage.css'
 
 export function HomePage() {
@@ -12,8 +12,8 @@ export function HomePage() {
         </p>
       </section>
       <div className="home-page__categories">
-        {categories.map((category) => (
-          <CategoryCard key={category.id} category={category} />
+        {mainCategories.map((category) => (
+          <MainCategoryCard key={category.id} category={category} />
         ))}
       </div>
     </div>
