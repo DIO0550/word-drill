@@ -1,0 +1,56 @@
+.home-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-page__hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.home-page__title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 0.75rem 0;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-page__subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.home-page__categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .home-page {
+    padding: 1rem;
+  }
+
+  .home-page__hero {
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+  }
+
+  .home-page__title {
+    font-size: 1.75rem;
+  }
+
+  .home-page__subtitle {
+    font-size: 1rem;
+  }
+
+  .home-page__categories {
+    grid-template-columns: 1fr;
+  }
+}
