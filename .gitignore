@@ -27,4 +27,4 @@ dist-ssr
 *storybook.log
 storybook-static
 
-./.agent/skills
+**/.agent/skills/*
