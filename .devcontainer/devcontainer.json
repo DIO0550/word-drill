@@ -4,6 +4,7 @@
 		"dockerfile": "Dockerfile"
 	},
 	"remoteUser": "node",
+	"forwardPorts": [5173],
 	"customizations": {
 		"vscode": {
 			"extensions": [
