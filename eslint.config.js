@@ -22,5 +22,16 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      // アロー関数を優先
+      'prefer-arrow-callback': 'error',
+      'func-style': ['error', 'expression'],
+      // interfaceではなくtypeを使用
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      // if/else/while等で必ず{}を使用
+      'curly': ['error', 'all'],
+      // 制御文の本体は次の行に配置（if文と同じ行にreturnを書かない）
+      'nonblock-statement-body-position': ['error', 'below'],
+    },
   },
 ])
