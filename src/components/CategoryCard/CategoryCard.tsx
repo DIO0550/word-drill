@@ -2,11 +2,11 @@ import { Link } from '@tanstack/react-router'
 import type { Category } from '../../data/categories'
 import './CategoryCard.css'
 
-interface CategoryCardProps {
+type CategoryCardProps = {
   category: Category
 }
 
-export function CategoryCard({ category }: CategoryCardProps) {
+export const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
     <Link
       to="/quiz/$category"

@@ -2,11 +2,11 @@ import { Link } from '@tanstack/react-router'
 import type { MainCategory } from '../../data/categories'
 import './MainCategoryCard.css'
 
-interface MainCategoryCardProps {
+type MainCategoryCardProps = {
   category: MainCategory
 }
 
-export function MainCategoryCard({ category }: MainCategoryCardProps) {
+export const MainCategoryCard = ({ category }: MainCategoryCardProps) => {
   return (
     <div className="main-category-card">
       <div className="main-category-card__header">

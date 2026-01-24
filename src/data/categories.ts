@@ -1,4 +1,4 @@
-export interface SubCategory {
+export type SubCategory = {
   id: string
   name: string
   description: string
@@ -6,7 +6,7 @@ export interface SubCategory {
   wordCount: number
 }
 
-export interface MainCategory {
+export type MainCategory = {
   id: string
   name: string
   description: string
