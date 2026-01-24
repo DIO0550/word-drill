@@ -2,6 +2,9 @@
 trigger: always_on
 ---
 
+## PLANNINGモード
+- PLANNINGモードでは、必ず`implementation_plan.md`の作成から始めること
+
 ## 言語設定
 - 必ず**日本語**で応答すること
 - Implementation PlanとTaskは**日本語**で記載すること
@@ -23,3 +26,10 @@ trigger: always_on
 ```
 git add -A
 ```
+
+## UI確認
+- UIの確認を行う際は、必ず`agent-browser`スキルを使用すること
+- UIの実装やデザインに関しては、以下のスキルを参照すること
+  - `frontend-design`
+  - `theme-factory`
+  - `ui-design-guidelines`
