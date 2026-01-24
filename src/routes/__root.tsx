@@ -2,11 +2,7 @@ import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { Header } from '../components/Header/Header'
 import '../index.css'
 
-export const Route = createRootRoute({
-  component: RootLayout,
-})
-
-function RootLayout() {
+const RootLayout = () => {
   return (
     <div className="app-container">
       <Header />
@@ -16,3 +12,7 @@ function RootLayout() {
     </div>
   )
 }
+
+export const Route = createRootRoute({
+  component: RootLayout,
+})
