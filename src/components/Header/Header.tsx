@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import './Header.css'
 
-export function Header() {
+export const Header = () => {
   return (
     <header className="header">
       <Link to="/" className="header__logo">

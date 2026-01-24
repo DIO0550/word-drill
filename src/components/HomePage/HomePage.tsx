@@ -2,7 +2,7 @@ import { mainCategories } from '../../data/categories'
 import { MainCategoryCard } from '../MainCategoryCard/MainCategoryCard'
 import './HomePage.css'
 
-export function HomePage() {
+export const HomePage = () => {
   return (
     <div className="home-page">
       <section className="home-page__hero">
