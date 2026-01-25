@@ -45,6 +45,7 @@
     "globals": "^16.5.0",
     "jsdom": "^27.4.0",
     "playwright": "^1.57.0",
+    "sass": "^1.97.2",
     "storybook": "^10.1.11",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
