@@ -1,29 +1,32 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 :root {
   /* Fresh Light Color Palette */
-  --color-primary: #6366f1;
-  --color-primary-light: #818cf8;
-  --color-primary-glow: rgba(99, 102, 241, 0.2);
-  --color-secondary: #8b5cf6;
-  --color-secondary-glow: rgba(139, 92, 246, 0.2);
-  --color-accent: #06b6d4;
-  --color-success: #10b981;
-  --color-error: #ef4444;
+  --color-primary: #{$color-primary};
+  --color-primary-light: #{$color-primary-light};
+  --color-primary-glow: #{$color-primary-glow};
+  --color-secondary: #{$color-secondary};
+  --color-secondary-glow: #{$color-secondary-glow};
+  --color-accent: #{$color-accent};
+  --color-success: #{$color-success};
+  --color-error: #{$color-error};
   
-  --color-bg-primary: #fafbff;
-  --color-bg-secondary: #f1f5f9;
-  --color-bg-glass: rgba(255, 255, 255, 0.85);
-  --color-card-bg: rgba(255, 255, 255, 0.9);
-  --color-border: rgba(99, 102, 241, 0.15);
-  --color-border-hover: rgba(99, 102, 241, 0.3);
+  --color-bg-primary: #{$color-bg-primary};
+  --color-bg-secondary: #{$color-bg-secondary};
+  --color-bg-glass: #{$color-bg-glass};
+  --color-card-bg: #{$color-card-bg};
+  --color-border: #{$color-border};
+  --color-border-hover: #{$color-border-hover};
   
-  --color-text-primary: #1e293b;
-  --color-text-secondary: #64748b;
-  --color-text-light: #ffffff;
+  --color-text-primary: #{$color-text-primary};
+  --color-text-secondary: #{$color-text-secondary};
+  --color-text-light: #{$color-text-light};
 
   /* Typography */
-  --font-display: 'Orbitron', sans-serif;
-  --font-body: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
-  --font-emoji: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+  --font-display: #{$font-display};
+  --font-body: #{$font-body};
+  --font-emoji: #{$font-emoji};
 
   font-family: var(--font-body);
   line-height: 1.7;
