@@ -19,6 +19,7 @@ trigger: always_on
 
 ## 品質チェック
 - 必ずファイルを変更したら、`pnpm run lint`と`pnpm run test`を実行すること
+- 基本的なESLintの無効化を禁止する
 
 ## コミットルール
 - 必ず意味のある単位でコミットを分割すること。
