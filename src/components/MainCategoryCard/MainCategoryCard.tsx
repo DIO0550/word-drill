@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import type { MainCategory } from '../../data/categories'
-import './MainCategoryCard.css'
+import './MainCategoryCard.scss'
 
 type MainCategoryCardProps = {
   category: MainCategory
