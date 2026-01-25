@@ -34,4 +34,10 @@ export default defineConfig([
       'nonblock-statement-body-position': ['error', 'below'],
     },
   },
+  {
+    files: ['src/main.tsx', '**/*.d.ts'],
+    rules: {
+      '@typescript-eslint/consistent-type-definitions': 'off',
+    },
+  },
 ])
