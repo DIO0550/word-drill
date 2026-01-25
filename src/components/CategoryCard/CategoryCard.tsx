@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import type { Category } from '../../data/categories'
-import './CategoryCard.css'
+import './CategoryCard.scss'
 
 type CategoryCardProps = {
   category: Category
