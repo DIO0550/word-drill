@@ -17,9 +17,13 @@ trigger: always_on
 ## TypeScriptルール
 - 基本的に`interface`ではなく`type`を利用すること
 
-## 品質チェック
-- 必ずファイルを変更したら、`pnpm run lint`と`pnpm run test`を実行すること
-- 基本的なESLintの無効化を禁止する
+## 品質チェックとビルド
+ファイルを変更した際は、必ず以下のコマンドを実行して品質を保証すること
+- **静的解析**: `pnpm run lint`
+- **単体テスト**: `pnpm run test`
+- **ビルド確認**: `pnpm run build`
+
+※ 基本的なESLintの無効化を禁止する
 
 ## コミットルール
 - 必ず意味のある単位でコミットを分割すること。
