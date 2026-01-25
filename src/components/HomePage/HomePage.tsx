@@ -1,6 +1,6 @@
 import { mainCategories } from '../../data/categories'
 import { MainCategoryCard } from '../MainCategoryCard/MainCategoryCard'
-import './HomePage.css'
+import './HomePage.scss'
 
 export const HomePage = () => {
   return (
