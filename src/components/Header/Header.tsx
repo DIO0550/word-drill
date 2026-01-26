@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher'
 import './Header.scss'
 
 export const Header = () => {
@@ -13,6 +14,7 @@ export const Header = () => {
           <span className="header__nav-link-icon">📊</span>
           <span>統計</span>
         </Link>
+        <ThemeSwitcher />
       </nav>
     </header>
   )

@@ -1,25 +1,25 @@
 /* Fresh Light Color Palette */
-$color-primary: #6366f1;
-$color-primary-light: #818cf8;
-$color-primary-glow: rgba(99, 102, 241, 0.2);
-$color-secondary: #8b5cf6;
-$color-secondary-glow: rgba(139, 92, 246, 0.2);
-$color-accent: #06b6d4;
-$color-success: #10b981;
-$color-error: #ef4444;
+$color-primary: var(--color-primary);
+$color-primary-light: var(--color-primary-light);
+$color-primary-glow: var(--color-primary-glow);
+$color-secondary: var(--color-secondary);
+$color-secondary-glow: var(--color-secondary-glow);
+$color-accent: var(--color-accent);
+$color-success: var(--color-success);
+$color-error: var(--color-error);
 
-$color-bg-primary: #fafbff;
-$color-bg-secondary: #f1f5f9;
-$color-bg-glass: rgba(255, 255, 255, 0.85);
-$color-card-bg: rgba(255, 255, 255, 0.9);
-$color-border: rgba(99, 102, 241, 0.15);
-$color-border-hover: rgba(99, 102, 241, 0.3);
+$color-bg-primary: var(--color-bg-primary);
+$color-bg-secondary: var(--color-bg-secondary);
+$color-bg-glass: var(--color-bg-glass);
+$color-card-bg: var(--color-card-bg);
+$color-border: var(--color-border);
+$color-border-hover: var(--color-border-hover);
 
-$color-text-primary: #1e293b;
-$color-text-secondary: #64748b;
-$color-text-light: #ffffff;
+$color-text-primary: var(--color-text-primary);
+$color-text-secondary: var(--color-text-secondary);
+$color-text-light: var(--color-text-light);
 
 /* Typography */
-$font-display: 'Orbitron', sans-serif;
-$font-body: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
-$font-emoji: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+$font-display: var(--font-display);
+$font-body: var(--font-body);
+$font-emoji: var(--font-emoji);

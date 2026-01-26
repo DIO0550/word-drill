@@ -2,32 +2,8 @@
 @use 'mixins' as *;
 
 :root {
-  /* Fresh Light Color Palette */
-  --color-primary: #{$color-primary};
-  --color-primary-light: #{$color-primary-light};
-  --color-primary-glow: #{$color-primary-glow};
-  --color-secondary: #{$color-secondary};
-  --color-secondary-glow: #{$color-secondary-glow};
-  --color-accent: #{$color-accent};
-  --color-success: #{$color-success};
-  --color-error: #{$color-error};
-  
-  --color-bg-primary: #{$color-bg-primary};
-  --color-bg-secondary: #{$color-bg-secondary};
-  --color-bg-glass: #{$color-bg-glass};
-  --color-card-bg: #{$color-card-bg};
-  --color-border: #{$color-border};
-  --color-border-hover: #{$color-border-hover};
-  
-  --color-text-primary: #{$color-text-primary};
-  --color-text-secondary: #{$color-text-secondary};
-  --color-text-light: #{$color-text-light};
-
-  /* Typography */
-  --font-display: #{$font-display};
-  --font-body: #{$font-body};
-  --font-emoji: #{$font-emoji};
-
+  /* Initial values are injected by JS, but providing fallbacks or base setup if needed */
+  /* Fallbacks for development env or before JS loads */
   font-family: var(--font-body);
   line-height: 1.7;
   font-weight: 400;
