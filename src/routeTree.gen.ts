@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as StatsRouteImport } from './routes/stats'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QuizCategoryRouteImport } from './routes/quiz.$category'
+import { Route as CategoryCategoryIdRouteImport } from './routes/category.$categoryId'
 
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
@@ -28,34 +29,43 @@ const QuizCategoryRoute = QuizCategoryRouteImport.update({
   path: '/quiz/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategoryCategoryIdRoute = CategoryCategoryIdRouteImport.update({
+  id: '/category/$categoryId',
+  path: '/category/$categoryId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/stats': typeof StatsRoute
+  '/category/$categoryId': typeof CategoryCategoryIdRoute
   '/quiz/$category': typeof QuizCategoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/stats': typeof StatsRoute
+  '/category/$categoryId': typeof CategoryCategoryIdRoute
   '/quiz/$category': typeof QuizCategoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/stats': typeof StatsRoute
+  '/category/$categoryId': typeof CategoryCategoryIdRoute
   '/quiz/$category': typeof QuizCategoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/stats' | '/quiz/$category'
+  fullPaths: '/' | '/stats' | '/category/$categoryId' | '/quiz/$category'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/stats' | '/quiz/$category'
-  id: '__root__' | '/' | '/stats' | '/quiz/$category'
+  to: '/' | '/stats' | '/category/$categoryId' | '/quiz/$category'
+  id: '__root__' | '/' | '/stats' | '/category/$categoryId' | '/quiz/$category'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   StatsRoute: typeof StatsRoute
+  CategoryCategoryIdRoute: typeof CategoryCategoryIdRoute
   QuizCategoryRoute: typeof QuizCategoryRoute
 }
 
@@ -82,12 +92,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/category/$categoryId': {
+      id: '/category/$categoryId'
+      path: '/category/$categoryId'
+      fullPath: '/category/$categoryId'
+      preLoaderRoute: typeof CategoryCategoryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   StatsRoute: StatsRoute,
+  CategoryCategoryIdRoute: CategoryCategoryIdRoute,
   QuizCategoryRoute: QuizCategoryRoute,
 }
 export const routeTree = rootRouteImport
