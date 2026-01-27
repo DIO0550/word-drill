@@ -33,6 +33,7 @@ git add -A
 ```
 
 ## UI確認
+- **Chrome Browserは使わないこと**
 - UIの確認を行う際は、必ず`agent-browser`スキルを使用すること
 - UIの実装やデザインに関しては、以下のスキルを参照すること
   - `frontend-design`
