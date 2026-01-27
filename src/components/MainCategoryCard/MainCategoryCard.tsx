@@ -7,31 +7,52 @@ type MainCategoryCardProps = {
 }
 
 export const MainCategoryCard = ({ category }: MainCategoryCardProps) => {
+  const totalWordCount = category.subCategories.reduce(
+    (sum, sub) => sum + sub.wordCount,
+    0
+  )
+
   return (
-    <div className="main-category-card">
+    <Link
+      to="/category/$categoryId"
+      params={{ categoryId: category.id }}
+      className="main-category-card"
+    >
       <div className="main-category-card__header">
         <span className="main-category-card__icon">{category.icon}</span>
         <h2 className="main-category-card__title">{category.name}</h2>
         <p className="main-category-card__description">{category.description}</p>
       </div>
-      
-      <div className="main-category-card__subcategories">
-        {category.subCategories.map((sub) => (
-          <Link
-            key={sub.id}
-            to="/quiz/$category"
-            params={{ category: sub.id }}
-            className="subcategory-item"
-          >
-            <span className="subcategory-item__icon">{sub.icon}</span>
-            <div className="subcategory-item__content">
-              <span className="subcategory-item__name">{sub.name}</span>
-              <span className="subcategory-item__word-count">{sub.wordCount} 単語</span>
-            </div>
-            <span className="subcategory-item__arrow">→</span>
-          </Link>
-        ))}
+
+      <div className="main-category-card__info">
+        <div className="main-category-card__stat">
+          <span className="main-category-card__stat-value">
+            {category.subCategories.length}
+          </span>
+          <span className="main-category-card__stat-label">カテゴリ</span>
+        </div>
+        <div className="main-category-card__stat">
+          <span className="main-category-card__stat-value">{totalWordCount}</span>
+          <span className="main-category-card__stat-label">問題</span>
+        </div>
       </div>
-    </div>
+
+      <div className="main-category-card__subcategories">
+        {category.subCategories.slice(0, 3).map((sub) => (
+          <span key={sub.id} className="subcategory-tag">
+            {sub.icon} {sub.name}
+          </span>
+        ))}
+        {category.subCategories.length > 3 && (
+          <span className="subcategory-tag subcategory-tag--more">
+            +{category.subCategories.length - 3}
+          </span>
+        )}
+      </div>
+
+      <span className="main-category-card__cta">
+        学習を始める →
+      </span>
+    </Link>
   )
 }

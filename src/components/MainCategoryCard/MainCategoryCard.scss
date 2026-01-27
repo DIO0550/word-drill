@@ -11,6 +11,9 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(99, 102, 241, 0.08);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 /* Gradient accent on top */
@@ -26,15 +29,16 @@
 
 .main-category-card:hover {
   border-color: var(--color-border-hover);
+  transform: translateY(-6px);
   box-shadow: 
-    0 16px 48px rgba(99, 102, 241, 0.12),
-    0 8px 24px rgba(139, 92, 246, 0.08);
+    0 20px 60px rgba(99, 102, 241, 0.15),
+    0 8px 24px rgba(139, 92, 246, 0.1);
 }
 
 /* Header */
 .main-category-card__header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--color-border);
 }
@@ -66,67 +70,79 @@
   line-height: 1.5;
 }
 
-/* Subcategories list */
-.main-category-card__subcategories {
+/* Info stats */
+.main-category-card__info {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Subcategory item */
-.subcategory-item {
+.main-category-card__stat {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(139, 92, 246, 0.04));
-  border: 1px solid transparent;
-  border-radius: 14px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.subcategory-item:hover {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-  border-color: var(--color-border-hover);
-  transform: translateX(6px);
-}
-
-.subcategory-item__icon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.subcategory-item__content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   gap: 0.25rem;
 }
 
-.subcategory-item__name {
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--color-text-primary);
+.main-category-card__stat-value {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.subcategory-item__word-count {
+.main-category-card__stat-label {
   font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Subcategories tags */
+.main-category-card__subcategories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.subcategory-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.75rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+  border-radius: 20px;
+  font-size: 0.85rem;
   color: var(--color-text-secondary);
 }
 
-.subcategory-item__arrow {
-  font-size: 1.25rem;
+.subcategory-tag--more {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
   color: var(--color-primary);
-  opacity: 0;
-  transform: translateX(-8px);
+  font-weight: 600;
+}
+
+/* CTA */
+.main-category-card__cta {
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-primary);
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
   transition: all 0.3s ease;
 }
 
-.subcategory-item:hover .subcategory-item__arrow {
-  opacity: 1;
-  transform: translateX(0);
+.main-category-card:hover .main-category-card__cta {
+  color: var(--color-secondary);
+  letter-spacing: 0.05em;
 }
 
 /* Responsive */
@@ -144,8 +160,12 @@
     font-size: 1.5rem;
   }
 
-  .subcategory-item {
-    padding: 0.875rem 1rem;
+  .main-category-card__info {
+    gap: 2rem;
+  }
+
+  .main-category-card__stat-value {
+    font-size: 1.5rem;
   }
 }
 
@@ -155,7 +175,11 @@
   }
 
   .main-category-card__header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     padding-bottom: 1rem;
+  }
+
+  .main-category-card__info {
+    margin-bottom: 1rem;
   }
 }
