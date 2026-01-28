@@ -8,11 +8,11 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as StatsRouteImport } from './routes/stats'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as QuizCategoryRouteImport } from './routes/quiz.$category'
-import { Route as CategoryCategoryIdRouteImport } from './routes/category.$categoryId'
+import { Route as rootRouteImport } from './app/routes/__root'
+import { Route as StatsRouteImport } from './app/routes/stats'
+import { Route as IndexRouteImport } from './app/routes/index'
+import { Route as QuizCategoryRouteImport } from './app/routes/quiz.$category'
+import { Route as CategoryCategoryIdRouteImport } from './app/routes/category.$categoryId'
 
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',

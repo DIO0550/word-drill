@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { ThemeProvider } from './ThemeContext'
-import { useTheme } from './useTheme'
+import { useTheme } from '../../hooks/useTheme'
 import { themes } from './themes'
 
 // Mock storage

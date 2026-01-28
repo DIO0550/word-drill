@@ -1,4 +1,4 @@
-import { useTheme } from '../../theme/useTheme'
+import { useTheme } from '../../hooks/useTheme'
 import './ThemeSwitcher.scss'
 
 export const ThemeSwitcher = () => {

@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { Header } from '../components/Header/Header'
+import { Header } from '../../widgets/Header/Header'
 import '../styles/main.scss'
 
 const RootLayout = () => {

@@ -1,4 +1,4 @@
-import { mainCategories } from '../../data/categories'
+import { mainCategories } from '../../../category/data/categories'
 import { MainCategoryCard } from '../MainCategoryCard/MainCategoryCard'
 import './HomePage.scss'
 

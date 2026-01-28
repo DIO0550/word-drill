@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import type { MainCategory } from '../../data/categories'
+import type { MainCategory } from '../../../category/data/categories'
 import './MainCategoryCard.scss'
 
 type MainCategoryCardProps = {
