@@ -33,7 +33,9 @@ git add -A
 ```
 
 ## テスト記述ルール
-- **テストはネストさせないこと** (`describe` ブロックの使用を避け、フラットに `it` / `test` を記述する)
+- **テストはネストさせないこと** (`describe` ブロックの使用を避け、フラットに `test` を記述する)
+  - `it` ではなく `test` を使用すること
+  - ネストが必要なさそうな場合は、テストファイルを分割することで対応すること
   - 参考: [Avoid Nesting when you're Testing](https://kentcdodds.com/blog/avoid-nesting-when-youre-testing)
 
 ## UI確認
