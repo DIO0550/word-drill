@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams } from '@tanstack/react-router'
+import { Button } from '../../../../components/Button'
 import { mainCategories } from '../../data/categories'
 import type { SubCategory } from '../../data/categories'
 import './CategorySettingsPage.scss'
@@ -148,14 +149,15 @@ export const CategorySettingsPage = () => {
           </div>
         </section>
 
-        <button
-          type="button"
-          className="category-settings-page__start-button"
+        <Button
+          variant="primary"
+          size="large"
+          fullWidth
           onClick={handleStart}
           disabled={!selectedSubCategory}
         >
           開始する
-        </button>
+        </Button>
       </div>
     </div>
   )

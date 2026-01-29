@@ -51,49 +51,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-primary);
 }
 
-button {
-  border-radius: 12px;
-  border: none;
-  padding: 0.875rem 1.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: var(--font-display);
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  color: var(--color-text-light);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 15px var(--color-primary-glow);
-}
-
-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.5s ease;
-}
-
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 
-    0 10px 30px var(--color-primary-glow),
-    0 4px 15px var(--color-secondary-glow);
-}
-
-button:hover::before {
-  transform: translateX(100%);
-}
-
-button:focus,
-button:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 3px;
-}
+/* Button styles are now in src/components/Button/Button.scss */
 
 .app-container {
   display: flex;

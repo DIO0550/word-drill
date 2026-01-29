@@ -209,24 +209,7 @@
   color: var(--color-primary);
 }
 
-/* Start button */
-.category-settings-page__start-button {
-  width: 100%;
-  padding: 1.25rem 2rem;
-  font-size: 1.15rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border-radius: 16px;
-  margin-top: 1rem;
-}
-
-.category-settings-page__start-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
+/* Start button styles moved to src/components/Button/Button.scss */
 
 /* Error state */
 .category-settings-page__error {
