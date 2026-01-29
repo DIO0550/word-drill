@@ -32,6 +32,10 @@ trigger: always_on
 git add -A
 ```
 
+## テスト記述ルール
+- **テストはネストさせないこと** (`describe` ブロックの使用を避け、フラットに `it` / `test` を記述する)
+  - 参考: [Avoid Nesting when you're Testing](https://kentcdodds.com/blog/avoid-nesting-when-youre-testing)
+
 ## UI確認
 - **Chrome Browserは使わないこと**
 - UIの確認を行う際は、必ず`agent-browser`スキルを使用すること
