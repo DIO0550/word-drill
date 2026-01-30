@@ -1,0 +1,23 @@
+@use '../../app/styles/variables' as v;
+@use '../../app/styles/mixins' as m;
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: v.$color-bg-primary;
+  color: v.$color-text-primary;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &__main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    
+    @include m.tablet {
+      padding: 3rem 2rem;
+    }
+  }
+}
