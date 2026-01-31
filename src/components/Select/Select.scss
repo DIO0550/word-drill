@@ -1,31 +1,28 @@
 @use '../../app/styles/variables' as v;
 
-.select-wrapper {
+.select {
   position: relative;
   width: 100%;
 
-  &::after {
-    content: "▼";
-    font-size: 0.8rem;
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: v.$color-text-secondary;
+  &--disabled {
+    opacity: 0.6;
     pointer-events: none;
   }
 
-  &__input {
-    appearance: none;
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    padding: 0.75rem 1rem;
     border: 1px solid v.$color-border;
-    border-radius: 8px;
-    background-color: v.$color-card-bg;
+    border-radius: 10px;
+    background: v.$color-card-bg;
     color: v.$color-text-primary;
     font-size: 1rem;
+    font-family: inherit;
     cursor: pointer;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s ease;
 
     &:hover {
       border-color: v.$color-border-hover;
@@ -36,10 +33,104 @@
       border-color: v.$color-primary;
       box-shadow: 0 0 0 3px v.$color-primary-glow;
     }
+  }
 
-    option {
-      background-color: v.$color-card-bg;
-      color: v.$color-text-primary;
+  &--open &__trigger {
+    border-color: v.$color-primary;
+    box-shadow: 0 0 0 3px v.$color-primary-glow;
+  }
+
+  &__value {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+    color: v.$color-text-secondary;
+    transition: transform 0.2s ease;
+  }
+
+  &--open &__arrow {
+    transform: rotate(180deg);
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 240px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.5rem 0;
+    list-style: none;
+    background: v.$color-card-bg;
+    border: 1px solid v.$color-border;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: selectDropdownFadeIn 0.15s ease-out;
+
+    // スクロールバーのスタイル
+    &::-webkit-scrollbar {
+      width: 6px;
     }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: v.$color-border;
+      border-radius: 3px;
+
+      &:hover {
+        background: v.$color-border-hover;
+      }
+    }
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover,
+    &--highlighted {
+      background: v.$color-bg-secondary;
+    }
+
+    &--selected {
+      color: v.$color-primary;
+      font-weight: 500;
+    }
+  }
+
+  &__check {
+    display: flex;
+    align-items: center;
+    color: v.$color-primary;
+    margin-left: 0.5rem;
+  }
+}
+
+@keyframes selectDropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
