@@ -65,100 +65,113 @@ export const CategorySettingsPage = () => {
           <span className="category-settings-page__icon">{category.icon}</span>
           <h1 className="category-settings-page__title">{category.name}</h1>
         </div>
+
+        <div className="category-settings-page__actions">
+          <Button
+            variant="primary"
+            size="large"
+            fullWidth
+            onClick={handleStart}
+            disabled={!selectedSubCategory}
+          >
+            開始する
+          </Button>
+        </div>
       </header>
 
-      <div className="category-settings-page__content">
-        <section className="category-settings-page__section">
-          <h2 className="category-settings-page__section-title">
-            サブカテゴリを選択
-          </h2>
-          <div className="subcategory-list">
-            {category.subCategories.map((sub) => (
-              <label
-                key={sub.id}
-                className={`subcategory-radio ${
-                  selectedSubCategory?.id === sub.id ? 'subcategory-radio--selected' : ''
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="subcategory"
-                  value={sub.id}
-                  checked={selectedSubCategory?.id === sub.id}
-                  onChange={() => setSelectedSubCategory(sub)}
-                  className="subcategory-radio__input"
-                />
-                <span className="subcategory-radio__icon">{sub.icon}</span>
-                <div className="subcategory-radio__content">
-                  <span className="subcategory-radio__name">{sub.name}</span>
-                  <span className="subcategory-radio__word-count">
-                    {sub.wordCount} 問
-                  </span>
+        <div className="category-settings-page__grid">
+          <main className="category-settings-page__main">
+            <section className="category-settings-page__section">
+              <h2 className="category-settings-page__section-title">
+                サブカテゴリを選択
+              </h2>
+              <div className="subcategory-list">
+                {category.subCategories.map((sub) => (
+                  <label
+                    key={sub.id}
+                    className={`subcategory-card ${
+                      selectedSubCategory?.id === sub.id ? 'subcategory-card--selected' : ''
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="subcategory"
+                      value={sub.id}
+                      checked={selectedSubCategory?.id === sub.id}
+                      onChange={() => setSelectedSubCategory(sub)}
+                      className="subcategory-card__input"
+                    />
+                    <div className="subcategory-card__header">
+                      <span className="subcategory-card__icon">{sub.icon}</span>
+                      <span className={`subcategory-card__indicator ${
+                        selectedSubCategory?.id === sub.id ? 'subcategory-card__indicator--active' : ''
+                      }`} />
+                    </div>
+                    <div className="subcategory-card__content">
+                      <span className="subcategory-card__name">{sub.name}</span>
+                      <span className="subcategory-card__description">{sub.description}</span>
+                      <span className="subcategory-card__word-count">
+                        {sub.wordCount} 問
+                      </span>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </section>
+          </main>
+
+          <aside className="category-settings-page__sidebar">
+            <div className="category-settings-page__sidebar-content">
+              <section className="category-settings-page__section">
+                <h2 className="category-settings-page__section-title">問題数</h2>
+                <div className="option-group">
+                  {questionCountOptions.map((option) => (
+                    <label
+                      key={option.value}
+                      className={`option-button ${
+                        questionCount === option.value ? 'option-button--selected' : ''
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="questionCount"
+                        value={option.value}
+                        checked={questionCount === option.value}
+                        onChange={() => setQuestionCount(option.value)}
+                        className="option-button__input"
+                      />
+                      <span className="option-button__label">{option.label}</span>
+                    </label>
+                  ))}
                 </div>
-                <span className="subcategory-radio__indicator" />
-              </label>
-            ))}
-          </div>
-        </section>
+              </section>
 
-        <section className="category-settings-page__section">
-          <h2 className="category-settings-page__section-title">問題数</h2>
-          <div className="option-group">
-            {questionCountOptions.map((option) => (
-              <label
-                key={option.value}
-                className={`option-button ${
-                  questionCount === option.value ? 'option-button--selected' : ''
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="questionCount"
-                  value={option.value}
-                  checked={questionCount === option.value}
-                  onChange={() => setQuestionCount(option.value)}
-                  className="option-button__input"
-                />
-                <span className="option-button__label">{option.label}</span>
-              </label>
-            ))}
-          </div>
-        </section>
-
-        <section className="category-settings-page__section">
-          <h2 className="category-settings-page__section-title">出題モード</h2>
-          <div className="option-group">
-            {quizModeOptions.map((option) => (
-              <label
-                key={option.value}
-                className={`option-button ${
-                  quizMode === option.value ? 'option-button--selected' : ''
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="quizMode"
-                  value={option.value}
-                  checked={quizMode === option.value}
-                  onChange={() => setQuizMode(option.value)}
-                  className="option-button__input"
-                />
-                <span className="option-button__label">{option.label}</span>
-              </label>
-            ))}
-          </div>
-        </section>
-
-        <Button
-          variant="primary"
-          size="large"
-          fullWidth
-          onClick={handleStart}
-          disabled={!selectedSubCategory}
-        >
-          開始する
-        </Button>
-      </div>
+              <section className="category-settings-page__section">
+                <h2 className="category-settings-page__section-title">出題モード</h2>
+                <div className="option-group">
+                  {quizModeOptions.map((option) => (
+                    <label
+                      key={option.value}
+                      className={`option-button ${
+                        quizMode === option.value ? 'option-button--selected' : ''
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="quizMode"
+                        value={option.value}
+                        checked={quizMode === option.value}
+                        onChange={() => setQuizMode(option.value)}
+                        className="option-button__input"
+                      />
+                      <span className="option-button__label">{option.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </section>
+            </div>
+          </aside>
+        </div>
     </div>
   )
 }
