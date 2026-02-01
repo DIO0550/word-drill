@@ -16,6 +16,20 @@ trigger: always_on
 
 ## TypeScriptルール
 - 基本的に`interface`ではなく`type`を利用すること
+- **コンパニオンオブジェクトパターン**を使用すること
+  - 型と同名のオブジェクトを定義し、関連する関数をまとめる
+  - 例:
+    ```typescript
+    type User = {
+      id: string
+      name: string
+    }
+
+    const User = {
+      create: (id: string, name: string): User => ({ id, name }),
+      validate: (user: User): boolean => user.id.length > 0,
+    } as const
+    ```
 
 ## 品質チェックとビルド
 ファイルを変更した際は、必ず以下のコマンドを実行して品質を保証すること
