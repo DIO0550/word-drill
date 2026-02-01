@@ -1,23 +1,22 @@
 import { useTheme } from '../../hooks/useTheme'
+import { Select } from '../../components/Select/Select'
 import './ThemeSwitcher.scss'
 
 export const ThemeSwitcher = () => {
   const { currentThemeId, setTheme, availableThemes } = useTheme()
 
+  const themeOptions = availableThemes.map((theme) => ({
+    label: theme.name,
+    value: theme.id,
+  }))
+
   return (
     <div className="theme-switcher">
-      <select
+      <Select
+        options={themeOptions}
         value={currentThemeId}
-        onChange={(e) => setTheme(e.target.value)}
-        className="theme-select"
-        aria-label="Select theme"
-      >
-        {availableThemes.map((theme) => (
-          <option key={theme.id} value={theme.id}>
-            {theme.name}
-          </option>
-        ))}
-      </select>
+        onChange={(value) => setTheme(String(value))}
+      />
     </div>
   )
 }
