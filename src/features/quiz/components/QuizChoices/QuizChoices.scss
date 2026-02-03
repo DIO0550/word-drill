@@ -1,0 +1,76 @@
+@use '../../../../app/styles/variables' as *;
+
+.quiz-choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    text-align: left;
+    justify-content: flex-start;
+    transition: all 0.2s ease;
+
+    &--correct {
+      background-color: var(--color-success) !important;
+      border-color: var(--color-success) !important;
+      color: white !important;
+      animation: pulse-success 0.3s ease;
+    }
+
+    &--incorrect {
+      background-color: var(--color-error) !important;
+      border-color: var(--color-error) !important;
+      color: white !important;
+      animation: shake 0.3s ease;
+    }
+  }
+
+  &__index {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--color-surface-variant);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    flex: 1;
+  }
+}
+
+@keyframes pulse-success {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-4px);
+  }
+  40%,
+  80% {
+    transform: translateX(4px);
+  }
+}

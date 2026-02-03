@@ -13,6 +13,7 @@ import { Route as StatsRouteImport } from './app/routes/stats'
 import { Route as IndexRouteImport } from './app/routes/index'
 import { Route as QuizCategoryRouteImport } from './app/routes/quiz.$category'
 import { Route as CategoryCategoryIdRouteImport } from './app/routes/category.$categoryId'
+import { Route as QuizCategoryPlayRouteImport } from './app/routes/quiz.$category.play'
 
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
@@ -34,39 +35,63 @@ const CategoryCategoryIdRoute = CategoryCategoryIdRouteImport.update({
   path: '/category/$categoryId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizCategoryPlayRoute = QuizCategoryPlayRouteImport.update({
+  id: '/play',
+  path: '/play',
+  getParentRoute: () => QuizCategoryRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/stats': typeof StatsRoute
   '/category/$categoryId': typeof CategoryCategoryIdRoute
-  '/quiz/$category': typeof QuizCategoryRoute
+  '/quiz/$category': typeof QuizCategoryRouteWithChildren
+  '/quiz/$category/play': typeof QuizCategoryPlayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/stats': typeof StatsRoute
   '/category/$categoryId': typeof CategoryCategoryIdRoute
-  '/quiz/$category': typeof QuizCategoryRoute
+  '/quiz/$category': typeof QuizCategoryRouteWithChildren
+  '/quiz/$category/play': typeof QuizCategoryPlayRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/stats': typeof StatsRoute
   '/category/$categoryId': typeof CategoryCategoryIdRoute
-  '/quiz/$category': typeof QuizCategoryRoute
+  '/quiz/$category': typeof QuizCategoryRouteWithChildren
+  '/quiz/$category/play': typeof QuizCategoryPlayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/stats' | '/category/$categoryId' | '/quiz/$category'
+  fullPaths:
+    | '/'
+    | '/stats'
+    | '/category/$categoryId'
+    | '/quiz/$category'
+    | '/quiz/$category/play'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/stats' | '/category/$categoryId' | '/quiz/$category'
-  id: '__root__' | '/' | '/stats' | '/category/$categoryId' | '/quiz/$category'
+  to:
+    | '/'
+    | '/stats'
+    | '/category/$categoryId'
+    | '/quiz/$category'
+    | '/quiz/$category/play'
+  id:
+    | '__root__'
+    | '/'
+    | '/stats'
+    | '/category/$categoryId'
+    | '/quiz/$category'
+    | '/quiz/$category/play'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   StatsRoute: typeof StatsRoute
   CategoryCategoryIdRoute: typeof CategoryCategoryIdRoute
-  QuizCategoryRoute: typeof QuizCategoryRoute
+  QuizCategoryRoute: typeof QuizCategoryRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -99,14 +124,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoryCategoryIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz/$category/play': {
+      id: '/quiz/$category/play'
+      path: '/play'
+      fullPath: '/quiz/$category/play'
+      preLoaderRoute: typeof QuizCategoryPlayRouteImport
+      parentRoute: typeof QuizCategoryRoute
+    }
   }
 }
+
+interface QuizCategoryRouteChildren {
+  QuizCategoryPlayRoute: typeof QuizCategoryPlayRoute
+}
+
+const QuizCategoryRouteChildren: QuizCategoryRouteChildren = {
+  QuizCategoryPlayRoute: QuizCategoryPlayRoute,
+}
+
+const QuizCategoryRouteWithChildren = QuizCategoryRoute._addFileChildren(
+  QuizCategoryRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   StatsRoute: StatsRoute,
   CategoryCategoryIdRoute: CategoryCategoryIdRoute,
-  QuizCategoryRoute: QuizCategoryRoute,
+  QuizCategoryRoute: QuizCategoryRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

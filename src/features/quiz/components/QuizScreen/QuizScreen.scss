@@ -1,0 +1,12 @@
+@use '../../../../app/styles/variables' as *;
+@use '../../../../app/styles/mixins' as *;
+
+.quiz-screen {
+  padding: var(--spacing-md);
+  max-width: 600px;
+  margin: 0 auto;
+
+  @include tablet {
+    padding: var(--spacing-lg);
+  }
+}

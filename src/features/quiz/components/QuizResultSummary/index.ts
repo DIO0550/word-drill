@@ -1,0 +1,1 @@
+export { QuizResultSummary } from './QuizResultSummary'

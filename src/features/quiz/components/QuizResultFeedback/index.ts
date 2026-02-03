@@ -1,0 +1,1 @@
+export { QuizResultFeedback } from './QuizResultFeedback'
