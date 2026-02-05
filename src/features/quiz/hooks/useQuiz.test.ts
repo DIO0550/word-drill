@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react'
-import { describe, expect, test } from 'vitest'
+import { expect, test } from 'vitest'
 
 import type { QuizQuestion } from '../../../lib/quiz'
 
@@ -29,153 +29,151 @@ const mockQuestions: QuizQuestion[] = [
   },
 ]
 
-describe('useQuiz', () => {
-  test('初期状態が正しいこと', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+test('初期状態が正しいこと', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
 
-    expect(result.current.state.phase).toBe('playing')
-    expect(result.current.state.currentIndex).toBe(0)
-    expect(result.current.state.answers).toHaveLength(0)
-    expect(result.current.currentQuestion).toEqual(mockQuestions[0])
-    expect(result.current.result).toBeNull()
+  expect(result.current.state.phase).toBe('playing')
+  expect(result.current.state.currentIndex).toBe(0)
+  expect(result.current.state.answers).toHaveLength(0)
+  expect(result.current.currentQuestion).toEqual(mockQuestions[0])
+  expect(result.current.result).toBeNull()
+})
+
+test('回答選択で状態がfeedbackに変わること', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
+
+  act(() => {
+    result.current.selectAnswer(0)
   })
 
-  test('回答選択で状態がfeedbackに変わること', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+  expect(result.current.state.phase).toBe('feedback')
+  expect(result.current.state.answers).toHaveLength(1)
+  expect(result.current.state.answers[0]).toEqual({
+    questionId: 'q1',
+    selectedIndex: 0,
+    correctIndex: 0,
+    isCorrect: true,
+  })
+})
 
-    act(() => {
-      result.current.selectAnswer(0)
-    })
+test('正解の判定が正しいこと', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
 
-    expect(result.current.state.phase).toBe('feedback')
-    expect(result.current.state.answers).toHaveLength(1)
-    expect(result.current.state.answers[0]).toEqual({
-      questionId: 'q1',
-      selectedIndex: 0,
-      correctIndex: 0,
-      isCorrect: true,
-    })
+  act(() => {
+    result.current.selectAnswer(0)
   })
 
-  test('正解の判定が正しいこと', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+  expect(result.current.state.answers[0]?.isCorrect).toBe(true)
+})
 
-    act(() => {
-      result.current.selectAnswer(0)
-    })
+test('不正解の判定が正しいこと', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
 
-    expect(result.current.state.answers[0]?.isCorrect).toBe(true)
+  act(() => {
+    result.current.selectAnswer(1)
   })
 
-  test('不正解の判定が正しいこと', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+  expect(result.current.state.answers[0]?.isCorrect).toBe(false)
+})
 
-    act(() => {
-      result.current.selectAnswer(1)
-    })
+test('goToNextで次の問題に進むこと', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
 
-    expect(result.current.state.answers[0]?.isCorrect).toBe(false)
+  act(() => {
+    result.current.selectAnswer(0)
+  })
+  act(() => {
+    result.current.goToNext()
   })
 
-  test('goToNextで次の問題に進むこと', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+  expect(result.current.state.phase).toBe('playing')
+  expect(result.current.state.currentIndex).toBe(1)
+  expect(result.current.currentQuestion).toEqual(mockQuestions[1])
+})
 
+test('全問終了後に完了状態になること', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
+
+  // 3問すべてに回答
+  for (let i = 0; i < 3; i++) {
     act(() => {
-      result.current.selectAnswer(0)
+      result.current.selectAnswer(i)
     })
     act(() => {
       result.current.goToNext()
     })
+  }
 
-    expect(result.current.state.phase).toBe('playing')
-    expect(result.current.state.currentIndex).toBe(1)
-    expect(result.current.currentQuestion).toEqual(mockQuestions[1])
+  expect(result.current.state.phase).toBe('completed')
+  expect(result.current.currentQuestion).toBeNull()
+  expect(result.current.result).not.toBeNull()
+  expect(result.current.result?.totalCount).toBe(3)
+  expect(result.current.result?.correctCount).toBe(3)
+})
+
+test('リトライで初期状態に戻ること', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
+
+  // 1問回答
+  act(() => {
+    result.current.selectAnswer(0)
+  })
+  act(() => {
+    result.current.goToNext()
   })
 
-  test('全問終了後に完了状態になること', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
-
-    // 3問すべてに回答
-    for (let i = 0; i < 3; i++) {
-      act(() => {
-        result.current.selectAnswer(i)
-      })
-      act(() => {
-        result.current.goToNext()
-      })
-    }
-
-    expect(result.current.state.phase).toBe('completed')
-    expect(result.current.currentQuestion).toBeNull()
-    expect(result.current.result).not.toBeNull()
-    expect(result.current.result?.totalCount).toBe(3)
-    expect(result.current.result?.correctCount).toBe(3)
+  // リトライ
+  act(() => {
+    result.current.retry()
   })
 
-  test('リトライで初期状態に戻ること', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+  expect(result.current.state.phase).toBe('playing')
+  expect(result.current.state.currentIndex).toBe(0)
+  expect(result.current.state.answers).toHaveLength(0)
+  expect(result.current.currentQuestion).toEqual(mockQuestions[0])
+})
 
-    // 1問回答
-    act(() => {
-      result.current.selectAnswer(0)
-    })
-    act(() => {
-      result.current.goToNext()
-    })
+test('playing以外でselectAnswerを呼んでも変化しないこと', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
 
-    // リトライ
-    act(() => {
-      result.current.retry()
-    })
-
-    expect(result.current.state.phase).toBe('playing')
-    expect(result.current.state.currentIndex).toBe(0)
-    expect(result.current.state.answers).toHaveLength(0)
-    expect(result.current.currentQuestion).toEqual(mockQuestions[0])
+  act(() => {
+    result.current.selectAnswer(0)
   })
 
-  test('playing以外でselectAnswerを呼んでも変化しないこと', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+  const answersLength = result.current.state.answers.length
 
-    act(() => {
-      result.current.selectAnswer(0)
-    })
-
-    const answersLength = result.current.state.answers.length
-
-    // feedbackフェーズで再度selectAnswerを呼ぶ
-    act(() => {
-      result.current.selectAnswer(1)
-    })
-
-    expect(result.current.state.answers).toHaveLength(answersLength)
+  // feedbackフェーズで再度selectAnswerを呼ぶ
+  act(() => {
+    result.current.selectAnswer(1)
   })
 
-  test('feedback以外でgoToNextを呼んでも変化しないこと', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+  expect(result.current.state.answers).toHaveLength(answersLength)
+})
 
-    const initialIndex = result.current.state.currentIndex
+test('feedback以外でgoToNextを呼んでも変化しないこと', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
 
-    // playingフェーズでgoToNextを呼ぶ
-    act(() => {
-      result.current.goToNext()
-    })
+  const initialIndex = result.current.state.currentIndex
 
-    expect(result.current.state.currentIndex).toBe(initialIndex)
+  // playingフェーズでgoToNextを呼ぶ
+  act(() => {
+    result.current.goToNext()
   })
 
-  test('QuizResult.getAccuracyRateが正しく計算されること', () => {
-    const { result } = renderHook(() => useQuiz(mockQuestions))
+  expect(result.current.state.currentIndex).toBe(initialIndex)
+})
 
-    // 2問正解、1問不正解
-    act(() => result.current.selectAnswer(0)) // 正解
-    act(() => result.current.goToNext())
-    act(() => result.current.selectAnswer(1)) // 正解
-    act(() => result.current.goToNext())
-    act(() => result.current.selectAnswer(0)) // 不正解 (正解は2)
-    act(() => result.current.goToNext())
+test('QuizResult.getAccuracyRateが正しく計算されること', () => {
+  const { result } = renderHook(() => useQuiz(mockQuestions))
 
-    expect(result.current.result?.correctCount).toBe(2)
-    expect(result.current.result?.totalCount).toBe(3)
-  })
+  // 2問正解、1問不正解
+  act(() => result.current.selectAnswer(0)) // 正解
+  act(() => result.current.goToNext())
+  act(() => result.current.selectAnswer(1)) // 正解
+  act(() => result.current.goToNext())
+  act(() => result.current.selectAnswer(0)) // 不正解 (正解は2)
+  act(() => result.current.goToNext())
+
+  expect(result.current.result?.correctCount).toBe(2)
+  expect(result.current.result?.totalCount).toBe(3)
 })
