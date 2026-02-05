@@ -2,7 +2,7 @@ import { useReducer } from 'react'
 
 import type { QuizQuestion } from '../../../lib/quiz'
 
-import { AnswerRecord, QuizResult, QuizState } from '../types'
+import { AnswerRecord, QuizResult, QuizState } from '../index'
 
 /**
  * クイズのアクション

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import type { QuizQuestion } from '../../lib/quiz'
-import { QuizPlayPage } from '../../features/quiz'
+import { QuizPlayPage, QuestionCount, QuizMode } from '../../features/quiz'
 
 // モックデータ（デモ用）
 const mockQuestions: QuizQuestion[] = [
@@ -41,19 +41,43 @@ const categoryNameMap: Record<string, string> = {
 
 const QuizPlayComponent = () => {
   const params = Route.useParams()
+  const search = Route.useSearch()
+  
   const category = 'category' in params ? params.category : ''
   const categoryName = categoryNameMap[category] ?? category
 
+  console.log('Quiz Settings:', {
+    category,
+    subCategoryId: search.subCategoryId,
+    questionCount: search.questionCount,
+    mode: search.quizMode
+  })
+
+  // TODO: search.subCategoryId や search.questionCount に基づいて問題データをフィルタリングする
+  
   return (
     <QuizPlayPage
       categoryId={category}
       categoryName={categoryName}
       questions={mockQuestions}
-      mode="term-to-meaning"
+      mode={search.quizMode}
     />
   )
 }
 
+type QuizPlaySearchParams = {
+  subCategoryId?: string
+  questionCount: number | 'all'
+  quizMode: 'term-to-meaning' | 'meaning-to-term' | 'random'
+}
+
 export const Route = createFileRoute('/quiz/$category/play')({
   component: QuizPlayComponent,
+  validateSearch: (search: Record<string, unknown>): QuizPlaySearchParams => {
+    return {
+      subCategoryId: typeof search.subCategoryId === 'string' ? search.subCategoryId : undefined,
+      questionCount: QuestionCount.from(search.questionCount),
+      quizMode: QuizMode.from(search.quizMode),
+    }
+  },
 })

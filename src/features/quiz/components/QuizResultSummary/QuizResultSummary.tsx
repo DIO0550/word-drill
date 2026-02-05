@@ -1,7 +1,7 @@
 import { Button } from '../../../../components/Button/Button'
 import { Card } from '../../../../components/Card/Card'
 
-import { QuizResult } from '../../types'
+import { QuizResult } from '../../index'
 
 import './QuizResultSummary.scss'
 

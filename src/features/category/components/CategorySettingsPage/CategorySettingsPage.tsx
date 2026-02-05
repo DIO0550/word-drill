@@ -1,23 +1,21 @@
 import { useState } from 'react'
-import { Link, useParams } from '@tanstack/react-router'
+import { Link, useNavigate, useParams } from '@tanstack/react-router'
 import { Button } from '../../../../components/Button'
 import { mainCategories } from '../../data/categories'
 import type { SubCategory } from '../../data/categories'
+import { QuestionCount, QuizMode } from '../../../quiz'
 import './CategorySettingsPage.scss'
 
-type QuestionCount = 10 | 20 | 'all'
-type QuizMode = 'meaning' | 'term' | 'random'
-
 const questionCountOptions: { value: QuestionCount; label: string }[] = [
-  { value: 10, label: '10問' },
-  { value: 20, label: '20問' },
-  { value: 'all', label: '全部' },
+  { value: QuestionCount.TEN, label: '10問' },
+  { value: QuestionCount.TWENTY, label: '20問' },
+  { value: QuestionCount.ALL, label: '全部' },
 ]
 
 const quizModeOptions: { value: QuizMode; label: string }[] = [
-  { value: 'meaning', label: '意味を当てる' },
-  { value: 'term', label: '用語を当てる' },
-  { value: 'random', label: 'ランダム' },
+  { value: QuizMode.TERM_TO_MEANING, label: '意味を当てる' },
+  { value: QuizMode.MEANING_TO_TERM, label: '用語を当てる' },
+  { value: QuizMode.RANDOM, label: 'ランダム' },
 ]
 
 export const CategorySettingsPage = () => {
@@ -28,8 +26,10 @@ export const CategorySettingsPage = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategory | null>(
     category?.subCategories[0] ?? null
   )
-  const [questionCount, setQuestionCount] = useState<QuestionCount>(10)
-  const [quizMode, setQuizMode] = useState<QuizMode>('meaning')
+  const [questionCount, setQuestionCount] = useState<QuestionCount>(QuestionCount.TEN)
+  const [quizMode, setQuizMode] = useState<QuizMode>(QuizMode.TERM_TO_MEANING)
+
+  const navigate = useNavigate()
 
   if (!category) {
     return (
@@ -44,14 +44,19 @@ export const CategorySettingsPage = () => {
     )
   }
 
-  const handleStart = () => {
-    // TODO: クイズページ実装後に遷移を追加
-    console.log('クイズ開始:', {
-      category: category.name,
-      subCategory: selectedSubCategory?.name,
-      subCategoryId: selectedSubCategory?.id,
-      questionCount,
-      quizMode,
+  const handleStart = async () => {
+    if (!selectedSubCategory) {
+      return
+    }
+
+    await navigate({
+      to: '/quiz/$category/play',
+      params: { category: categoryId },
+      search: {
+        subCategoryId: selectedSubCategory.id,
+        questionCount,
+        quizMode,
+      },
     })
   }
 

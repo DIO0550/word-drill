@@ -3,8 +3,7 @@ import { useMemo } from 'react'
 import type { QuizQuestion } from '../../../../lib/quiz'
 
 import { useQuiz } from '../../hooks'
-import type { QuizMode } from '../../types'
-import { QuizMode as QuizModeUtil } from '../../types'
+import { QuizMode } from '../../index'
 import { QuizCard } from '../QuizCard'
 import { QuizChoices } from '../QuizChoices'
 import { QuizProgressHeader } from '../QuizProgressHeader'
@@ -32,7 +31,7 @@ export const QuizScreen = ({
     useQuiz(questions)
 
   // ランダムモードの場合、問題ごとにモードを決定（初回のみ）
-  const resolvedMode = useMemo(() => QuizModeUtil.resolve(mode), [mode])
+  const resolvedMode = useMemo(() => QuizMode.resolve(mode), [mode])
 
   const lastAnswer = state.answers[state.answers.length - 1]
 
