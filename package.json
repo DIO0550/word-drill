@@ -54,6 +54,10 @@
     "vitest": "^4.0.17"
   },
   "pnpm": {
+    "supportedArchitectures": {
+      "os": ["current", "darwin", "linux"],
+      "cpu": ["current", "x64", "arm64"]
+    },
     "overrides": {
       "vite": "npm:rolldown-vite@7.2.5"
     },
