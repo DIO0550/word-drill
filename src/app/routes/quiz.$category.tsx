@@ -1,8 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 const QuizComponent = () => {
-  const { category } = Route.useParams()
-  return <div>Quiz Category: {category}</div>
+  return (
+    <>
+      <Outlet />
+    </>
+  )
 }
 
 export const Route = createFileRoute('/quiz/$category')({

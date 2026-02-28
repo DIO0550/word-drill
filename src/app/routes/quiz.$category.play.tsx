@@ -31,20 +31,15 @@ const mockQuestions: QuizQuestion[] = [
   },
 ]
 
-const categoryNameMap: Record<string, string> = {
-  'tech-programming': 'プログラミング',
-  'tech-infra': 'インフラ/クラウド',
-  'tech-security': 'セキュリティ',
-  general: '一般英単語',
-  'general-toeic': 'TOEIC向け',
-}
+import { mainCategories } from '../../features/category/data/categories'
 
 const QuizPlayComponent = () => {
   const params = Route.useParams()
   const search = Route.useSearch()
   
   const category = 'category' in params ? params.category : ''
-  const categoryName = categoryNameMap[category] ?? category
+  const mainCategory = mainCategories.find((c) => c.id === category)
+  const categoryName = mainCategory?.name ?? category
 
   console.log('Quiz Settings:', {
     category,
@@ -53,13 +48,16 @@ const QuizPlayComponent = () => {
     mode: search.quizMode
   })
 
-  // TODO: search.subCategoryId や search.questionCount に基づいて問題データをフィルタリングする
+  // TODO: search.subCategoryId や search.questionCount に基づいて実際の問題データをフィルタリングする
+  // 今回はモックデータを指定の件数だけスライスして疑似的に反映する
+  const displayCount = search.questionCount === 'all' ? mockQuestions.length : search.questionCount;
+  const filteredQuestions = mockQuestions.slice(0, displayCount);
   
   return (
     <QuizPlayPage
       categoryId={category}
       categoryName={categoryName}
-      questions={mockQuestions}
+      questions={filteredQuestions}
       mode={search.quizMode}
     />
   )

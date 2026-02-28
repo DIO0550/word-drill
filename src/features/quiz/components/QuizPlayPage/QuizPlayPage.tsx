@@ -23,7 +23,7 @@ export const QuizPlayPage = ({
   const navigate = useNavigate()
 
   const handleBackToCategory = () => {
-    navigate({ to: '/quiz/$category', params: { category: categoryId } })
+    navigate({ to: '/category/$categoryId', params: { categoryId: categoryId } })
   }
 
   const handleBackToHome = () => {
