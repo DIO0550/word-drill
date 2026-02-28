@@ -129,27 +129,27 @@ ThemeProviderが `document.documentElement.style` に以下のCSS変数を設定
 
 ### カラー変数
 
-ColorPalette の各キーを `--color-{camelCaseKey}` 形式でCSS変数に変換する。
+ColorPalette の各キーを `--color-{kebab-case-key}` 形式でCSS変数に変換する。
 
 | CSS変数 | 対応するプロパティ |
 |:--------|:----------------|
 | `--color-primary` | `colors.primary` |
-| `--color-primaryLight` | `colors.primaryLight` |
-| `--color-primaryGlow` | `colors.primaryGlow` |
+| `--color-primary-light` | `colors.primaryLight` |
+| `--color-primary-glow` | `colors.primaryGlow` |
 | `--color-secondary` | `colors.secondary` |
-| `--color-secondaryGlow` | `colors.secondaryGlow` |
+| `--color-secondary-glow` | `colors.secondaryGlow` |
 | `--color-accent` | `colors.accent` |
 | `--color-success` | `colors.success` |
 | `--color-error` | `colors.error` |
-| `--color-bgPrimary` | `colors.bgPrimary` |
-| `--color-bgSecondary` | `colors.bgSecondary` |
-| `--color-bgGlass` | `colors.bgGlass` |
-| `--color-cardBg` | `colors.cardBg` |
+| `--color-bg-primary` | `colors.bgPrimary` |
+| `--color-bg-secondary` | `colors.bgSecondary` |
+| `--color-bg-glass` | `colors.bgGlass` |
+| `--color-card-bg` | `colors.cardBg` |
 | `--color-border` | `colors.border` |
-| `--color-borderHover` | `colors.borderHover` |
-| `--color-textPrimary` | `colors.textPrimary` |
-| `--color-textSecondary` | `colors.textSecondary` |
-| `--color-textLight` | `colors.textLight` |
+| `--color-border-hover` | `colors.borderHover` |
+| `--color-text-primary` | `colors.textPrimary` |
+| `--color-text-secondary` | `colors.textSecondary` |
+| `--color-text-light` | `colors.textLight` |
 
 ### タイポグラフィ変数
 

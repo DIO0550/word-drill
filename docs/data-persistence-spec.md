@@ -63,7 +63,7 @@
 
 ```mermaid
 erDiagram
-    history ||--o{ stats : "questionId"
+    stats ||--o{ history : "questionId"
     history {
         number id PK "自動採番"
         string questionId FK "問題ID"
@@ -88,7 +88,7 @@ erDiagram
 | イベント | トリガー | 動作 | 備考 |
 |:--------|:--------|:-----|:-----|
 | 作成 | クイズで1問回答するたび | `{ questionId, category, correct, timestamp: Date.now() }` をput | 1回答1レコード |
-| 読取 | 統計画面の表示 | category や timestamp でフィルタして集計 | |
+| 読取 | 統計画面の表示 | category や timestamp でフィルタして集計（期間フィルタ時の苦手単語も `history` から再計算） | |
 | 削除 | 履歴リセット | ストア内の全レコードを削除 | 確認ダイアログ必須 |
 
 ### stats
@@ -96,7 +96,7 @@ erDiagram
 | イベント | トリガー | 動作 | 備考 |
 |:--------|:--------|:-----|:-----|
 | 作成/更新 | クイズで1問回答するたび | questionId で get → correctCount/wrongCount をインクリメント → put | 存在しなければ新規作成 |
-| 読取 | 統計画面の苦手単語一覧 | 正答率50%以下をフィルタ | |
+| 読取 | 統計画面の全期間サマリ | 問題別の累積正答率を取得 | 期間フィルタありの集計には使わない |
 | 削除 | 履歴リセット | ストア内の全レコードを削除 | history と同時に削除 |
 
 ## データ書き込みフロー
@@ -150,9 +150,19 @@ const uniqueDates = new Set(allRecords.map(r => toDateString(r.timestamp)))
 ### 苦手な単語
 
 ```typescript
-// stats ストアの全レコードを取得
-const allStats = await stats.getAll()
-const weakWords = allStats
+// history を期間で絞り込み、questionId ごとに再集計
+const records = await history.index('timestamp').getAll(IDBKeyRange.bound(from, to))
+const byQuestion = new Map<string, { correctCount: number; wrongCount: number }>()
+
+for (const r of records) {
+  const current = byQuestion.get(r.questionId) ?? { correctCount: 0, wrongCount: 0 }
+  if (r.correct) current.correctCount += 1
+  else current.wrongCount += 1
+  byQuestion.set(r.questionId, current)
+}
+
+const weakWords = Array.from(byQuestion.entries())
+  .map(([questionId, s]) => ({ questionId, ...s }))
   .filter(s => {
     const total = s.correctCount + s.wrongCount
     return total >= 2 && (s.correctCount / total) <= 0.5
@@ -176,7 +186,7 @@ await tx.done
 | ルール | 説明 | 強制方法 |
 |:-------|:-----|:---------|
 | history と stats の同期 | history に書き込むたびに stats も更新する | アプリケーション層（1トランザクション） |
-| stats の正確性 | stats は history から再計算可能であること | リカバリ処理（計画中） |
+| stats の正確性 | stats は `history` 由来のキャッシュで、必要時に `history` から再計算可能であること | リカバリ処理（計画中） |
 | 履歴リセットの一貫性 | history と stats は同時に削除する | 1トランザクション内で両ストアをクリア |
 
 ## パフォーマンス考慮

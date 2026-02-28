@@ -68,7 +68,7 @@
 
 | フィールド | 種別 | 必須 | 初期値 | 説明 |
 |:----------|:-----|:-----|:-------|:-----|
-| subCategory | ラジオボタン | はい | 未選択 (`null`) | 学習対象のサブカテゴリ |
+| subCategory | ラジオボタン | はい | 先頭サブカテゴリ（サブカテゴリが空の場合は `null`） | 学習対象のサブカテゴリ |
 | questionCount | ラジオボタン | はい | `10` | 出題する問題の数 |
 | quizMode | ラジオボタン | はい | `term-to-meaning` | 出題形式 |
 | shuffle | ラジオボタン | はい | `true` (ON) | 出題順のシャッフル |
@@ -112,7 +112,7 @@
 
 | フィールド | ルール | エラーメッセージ | タイミング |
 |:----------|:------|:---------------|:----------|
-| subCategory | 必須（null不可） | サブカテゴリを選択してください | 開始ボタン押下時 |
+| subCategory | 必須（null不可） | サブカテゴリを選択してください | 開始ボタン押下時（通常はサブカテゴリが存在しないケースのみ） |
 
 ### 送信時の動作
 
@@ -131,7 +131,7 @@
 
 | 状態名 | 型 | 初期値 | 更新トリガー |
 |:-------|:---|:-------|:-----------|
-| selectedSubCategory | `SubCategory \| null` | `null` | サブカテゴリのラジオボタン選択 |
+| selectedSubCategory | `SubCategory \| null` | `category.subCategories[0] ?? null` | サブカテゴリのラジオボタン選択 |
 | questionCount | `QuestionCount` | `10` | 問題数のラジオボタン選択 |
 | quizMode | `QuizMode` | `'term-to-meaning'` | モードのラジオボタン選択 |
 | shuffle | `boolean` | `true` | シャッフルのラジオボタン選択 |
