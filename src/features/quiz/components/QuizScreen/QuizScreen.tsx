@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import type { QuizQuestion } from '../../../../lib/quiz'
 
-import { useQuiz } from '../../hooks'
+import { useQuiz, useAnswerRecorder } from '../../hooks'
 import { QuizMode } from '../../index'
 import { QuizCard } from '../QuizCard'
 import { QuizChoices } from '../QuizChoices'
@@ -14,6 +14,7 @@ import './QuizScreen.scss'
 
 type QuizScreenProps = {
   questions: QuizQuestion[]
+  categoryId: string
   categoryName: string
   mode: QuizMode
   onBackToCategory: () => void
@@ -22,13 +23,25 @@ type QuizScreenProps = {
 
 export const QuizScreen = ({
   questions,
+  categoryId,
   categoryName,
   mode,
   onBackToCategory,
   onBackToHome,
 }: QuizScreenProps) => {
-  const { state, currentQuestion, selectAnswer, goToNext, retry, result } =
+  const { state, currentQuestion, selectAnswer: selectAnswerBase, goToNext, retry, result } =
     useQuiz(questions)
+
+  const { record } = useAnswerRecorder(categoryId)
+
+  const selectAnswer = (selectedIndex: number) => {
+    if (!currentQuestion) {
+      return
+    }
+    const isCorrect = selectedIndex === currentQuestion.answer
+    void record(currentQuestion.id, isCorrect)
+    selectAnswerBase(selectedIndex)
+  }
 
   // ランダムモードの場合、問題ごとにモードを決定（初回のみ）
   const resolvedMode = useMemo(() => QuizMode.resolve(mode), [mode])

@@ -34,6 +34,7 @@ export const QuizPlayPage = ({
     <div className="quiz-play-page">
       <QuizScreen
         questions={questions}
+        categoryId={categoryId}
         categoryName={categoryName}
         mode={mode}
         onBackToCategory={handleBackToCategory}
