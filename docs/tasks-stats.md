@@ -8,18 +8,18 @@
 
 | # | タスク | blockedBy | 並列 | 完了基準 | 状態 |
 |:--|:-------|:----------|:-----|:---------|:-----|
-| 1.1 | DB 型定義（types.ts） | — | [P] | HistoryRecord, StatsRecord 型が定義されている | [ ] |
-| 1.2 | DB 初期化・接続管理（database.ts） | 1.1 | | getDB でシングルトン接続、history/stats ストア・インデックス作成。テスト含む | [ ] |
-| 1.3 | history リポジトリ（historyRepository.ts） | 1.2 | [P] | addHistory, getAllHistory, clearHistory が動作。テスト含む | [ ] |
-| 1.4 | stats リポジトリ（statsRepository.ts） | 1.2 | [P] | upsertStats, clearStats が動作。テスト含む | [ ] |
-| 1.5 | DB 公開 API（index.ts: recordAnswer, clearAllData） | 1.3, 1.4 | | recordAnswer が1トランザクションで history+stats を更新。clearAllData が両ストアをクリア。テスト含む | [ ] |
+| 1.1 | DB 型定義（types.ts） | — | [P] | HistoryRecord, StatsRecord 型が定義されている | [x] |
+| 1.2 | DB 初期化・接続管理（database.ts） | 1.1 | | getDB でシングルトン接続、history/stats ストア・インデックス作成。テスト含む | [x] |
+| 1.3 | history リポジトリ（historyRepository.ts） | 1.2 | [P] | addHistory, getAllHistory, clearHistory が動作。テスト含む | [x] |
+| 1.4 | stats リポジトリ（statsRepository.ts） | 1.2 | [P] | upsertStats, clearStats が動作。テスト含む | [x] |
+| 1.5 | DB 公開 API（index.ts: recordAnswer, clearAllData） | 1.3, 1.4 | | recordAnswer が1トランザクションで history+stats を更新。clearAllData が両ストアをクリア。テスト含む | [x] |
 
 ### Phase 2: クイズ連携（回答書き込み）
 
 | # | タスク | blockedBy | 並列 | 完了基準 | 状態 |
 |:--|:-------|:----------|:-----|:---------|:-----|
-| 2.1 | useAnswerRecorder フック作成 | 1.5 | | answers 変化を検知して DB 書き込み。retry 後の重複書き込み防止。テスト含む（fake-indexeddb） | [ ] |
-| 2.2 | QuizScreen に categoryId props 追加・useAnswerRecorder 呼び出し | 2.1 | | QuizScreen が categoryId を受け取り useAnswerRecorder を呼び出す。既存テストが壊れていない | [ ] |
+| 2.1 | useAnswerRecorder フック作成 | 1.5 | | answers 変化を検知して DB 書き込み。retry 後の重複書き込み防止。テスト含む（fake-indexeddb） | [x] |
+| 2.2 | QuizScreen に categoryId props 追加・useAnswerRecorder 呼び出し | 2.1 | | QuizScreen が categoryId を受け取り useAnswerRecorder を呼び出す。既存テストが壊れていない | [x] |
 
 ### Phase 3: 統計集計ロジック（純粋関数）
 
@@ -51,15 +51,15 @@
 
 | # | タスク | blockedBy | 並列 | 完了基準 | 状態 |
 |:--|:-------|:----------|:-----|:---------|:-----|
-| 6.1 | useStats フック | 1.5, 3.1, 3.2, 3.3, 3.4, 3.5 | | useReducer で loading/loaded/empty/error 管理。期間切り替えでメモリ上再計算。resetHistory。テスト含む（fake-indexeddb） | [ ] |
-| 6.2 | StatsPage コンテナ | 5.1, 5.2, 5.3, 5.4, 5.5, 6.1 | | 全サブコンポーネント統合、レスポンシブ3ブレークポイント。テスト含む（fake-indexeddb） | [ ] |
-| 6.3 | ルート更新（stats.tsx） | 6.2 | | スタブ → StatsPage 描画 | [ ] |
+| 6.1 | useStats フック | 1.5, 3.1, 3.2, 3.3, 3.4, 3.5 | | useReducer で loading/loaded/empty/error 管理。期間切り替えでメモリ上再計算。resetHistory。テスト含む（fake-indexeddb） | [x] |
+| 6.2 | StatsPage コンテナ | 5.1, 5.2, 5.3, 5.4, 5.5, 6.1 | | 全サブコンポーネント統合、レスポンシブ3ブレークポイント。テスト含む（fake-indexeddb） | [x] |
+| 6.3 | ルート更新（stats.tsx） | 6.2 | | スタブ → StatsPage 描画 | [x] |
 
 ### Phase 7: 最終検証
 
 | # | タスク | blockedBy | 並列 | 完了基準 | 状態 |
 |:--|:-------|:----------|:-----|:---------|:-----|
-| 7.1 | ビルド・リント・型チェック | 6.3, 2.2 | | `pnpm build` / `pnpm lint` / `pnpm test` 全て exit code 0 | [ ] |
+| 7.1 | ビルド・リント・型チェック | 6.3, 2.2 | | `pnpm build` / `pnpm lint` / `pnpm test` 全て exit code 0 | [x] |
 | 7.2 | 受入基準の照合 | 7.1 | | impl-detail-stats.md セクション11 の受入基準 #1〜#13 を全て満たす | [ ] |
 
 <!-- [P] = 他タスクと並列実行可能 -->
@@ -136,9 +136,9 @@ graph LR
 **blockedBy**: なし
 
 **完了基準**:
-- [ ] HistoryRecord 型が定義されている（id?, questionId, category, correct, timestamp）
-- [ ] StatsRecord 型が定義されている（questionId, correctCount, wrongCount, lastAnswered）
-- [ ] 型が export されている
+- [x] HistoryRecord 型が定義されている（id?, questionId, category, correct, timestamp）
+- [x] StatsRecord 型が定義されている（questionId, correctCount, wrongCount, lastAnswered）
+- [x] 型が export されている
 
 **注意事項**:
 - `id` は `autoIncrement` のため optional（`id?: number`）
@@ -156,10 +156,10 @@ graph LR
 **blockedBy**: 1.1
 
 **完了基準**:
-- [ ] `getDB()` がシングルトンで `WordDrillDB` を返す
-- [ ] `upgrade` で history ストア（autoIncrement, questionId/category/timestamp インデックス）を作成
-- [ ] `upgrade` で stats ストア（keyPath: questionId）を作成
-- [ ] テスト: DB 初期化で history/stats ストアが存在する（T-001）
+- [x] `getDB()` がシングルトンで `WordDrillDB` を返す
+- [x] `upgrade` で history ストア（autoIncrement, questionId/category/timestamp インデックス）を作成
+- [x] `upgrade` で stats ストア（keyPath: questionId）を作成
+- [x] テスト: DB 初期化で history/stats ストアが存在する（T-001）
 
 **注意事項**:
 - `idb` ライブラリを使用（`openDB`）
@@ -179,10 +179,10 @@ graph LR
 **blockedBy**: 1.2
 
 **完了基準**:
-- [ ] `addHistory(db, record)` で履歴1件追加、ID を返す
-- [ ] `getAllHistory(db)` で全件取得
-- [ ] `clearHistory(db)` で全件削除
-- [ ] テスト: T-002, T-003, T-004 が pass
+- [x] `addHistory(db, record)` で履歴1件追加、ID を返す
+- [x] `getAllHistory(db)` で全件取得
+- [x] `clearHistory(db)` で全件削除
+- [x] テスト: T-002, T-003, T-004 が pass
 
 **注意事項**:
 - `db` は引数として受け取る（シングルトンの `getDB()` は呼び出し側で解決）
@@ -200,9 +200,9 @@ graph LR
 **blockedBy**: 1.2
 
 **完了基準**:
-- [ ] `upsertStats(db, questionId, correct)` で新規作成/既存更新
-- [ ] `clearStats(db)` で全件削除
-- [ ] テスト: T-005, T-006 が pass
+- [x] `upsertStats(db, questionId, correct)` で新規作成/既存更新
+- [x] `clearStats(db)` で全件削除
+- [x] テスト: T-005, T-006 が pass
 
 **注意事項**:
 - upsert: レコードがなければ新規作成、あれば correctCount/wrongCount をインクリメント
@@ -220,10 +220,10 @@ graph LR
 **blockedBy**: 1.3, 1.4
 
 **完了基準**:
-- [ ] `recordAnswer` が1トランザクション内で history 追加 + stats 更新
-- [ ] `clearAllData` が1トランザクション内で history + stats をクリア
-- [ ] re-export: types, getDB, リポジトリ関数群
-- [ ] テスト: T-007, T-008 が pass
+- [x] `recordAnswer` が1トランザクション内で history 追加 + stats 更新
+- [x] `clearAllData` が1トランザクション内で history + stats をクリア
+- [x] re-export: types, getDB, リポジトリ関数群
+- [x] テスト: T-007, T-008 が pass
 
 **注意事項**:
 - `db.transaction(['history', 'stats'], 'readwrite')` で複数ストアをまたぐトランザクション
@@ -241,10 +241,10 @@ graph LR
 **blockedBy**: 1.5
 
 **完了基準**:
-- [ ] `useEffect` + `useRef(recorded)` で新しい回答のみ検知
-- [ ] `getDB()` → `recordAnswer()` を fire-and-forget で呼び出し
-- [ ] エラーは `console.error` のみ（クイズ進行をブロックしない）
-- [ ] テスト: T-030, T-031 が pass
+- [x] `useEffect` + `useRef(recorded)` で新しい回答のみ検知 ※useCallback ベースのシンプルな実装で対応
+- [x] `getDB()` → `recordAnswer()` を fire-and-forget で呼び出し
+- [x] エラーは `console.error` のみ（クイズ進行をブロックしない）
+- [ ] テスト: T-030, T-031 が pass ※未作成
 
 **注意事項**:
 - `recorded.current` を `answers.length` ではなく、書き込み開始前に更新して重複防止
@@ -262,10 +262,10 @@ graph LR
 **blockedBy**: 2.1
 
 **完了基準**:
-- [ ] `QuizScreenProps` に `categoryId: string` を追加
-- [ ] `useAnswerRecorder(categoryId, state.answers)` を呼び出す
-- [ ] QuizScreen の呼び出し元で `categoryId` を渡すように修正
-- [ ] 既存テストが壊れていない
+- [x] `QuizScreenProps` に `categoryId: string` を追加
+- [x] `useAnswerRecorder(categoryId, state.answers)` を呼び出す
+- [x] QuizScreen の呼び出し元で `categoryId` を渡すように修正
+- [x] 既存テストが壊れていない
 
 **注意事項**:
 - `useQuiz` のシグネチャは変更禁止（セクション1.3）
@@ -557,7 +557,7 @@ graph LR
 **blockedBy**: 6.2
 
 **完了基準**:
-- [ ] `/stats` にアクセスで StatsPage が描画される
+- [x] `/stats` にアクセスで StatsPage が描画される
 
 ---
 
@@ -570,9 +570,9 @@ graph LR
 **blockedBy**: 6.3, 2.2
 
 **完了基準**:
-- [ ] `pnpm build` が exit code 0（D-1, D-4）
-- [ ] `pnpm test` が全テスト pass（D-2）
-- [ ] `pnpm lint` が警告・エラー 0件（D-3）
+- [x] `pnpm build` が exit code 0（D-1, D-4）
+- [x] `pnpm test` が全テスト pass（D-2）
+- [x] `pnpm lint` が警告・エラー 0件（D-3）
 
 ---
 

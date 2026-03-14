@@ -13,6 +13,7 @@ trigger: always_on
 ## 禁止コマンド
 - npmは使わず、pnpmを使うこと
 - npxの使用を禁止する
+- pnpm dlxは禁止とする
 
 ## TypeScriptルール
 - 基本的に`interface`ではなく`type`を利用すること
